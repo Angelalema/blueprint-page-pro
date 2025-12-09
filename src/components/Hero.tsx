@@ -1,54 +1,81 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
+import heroImage from "@/assets/hero-museum.jpg";
 
 export const Hero = () => {
+  const scrollToSection = (elementId: string) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      const headerHeight = 20; // Approximate header height
+      const iconOffset = window.innerWidth >= 768 ? 38 : 25; // Extra space to show background icon
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerHeight - iconOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   const scrollToNext = () => {
-    const nextSection = document.getElementById("el-reto");
-    nextSection?.scrollIntoView({ behavior: "smooth" });
+    scrollToSection("el-reto");
+  };
+
+  const scrollToCintia = () => {
+    scrollToSection("cintia");
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background image with overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1554907984-15263bfd63bd?q=80&w=2070")',
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-hero" />
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center py-24 px-6">
+      <div className="container mx-auto w-full">
+        {/* Container with rounded corners for the main visual */}
+        <div className="relative w-full rounded-3xl overflow-hidden">
+          {/* Background image without gradient overlay */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${heroImage})`,
+            }}
+          />
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto"
-        >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Cultura <span className="font-handwriting text-primary">a medida</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-muted-foreground max-w-2xl mx-auto">
-            Una nueva forma de vivir los museos y espacios culturales,
-            personalizada según tus intereses, ritmo y estilo de aprendizaje.
-          </p>
-          <Button variant="hero" size="lg" className="text-lg">
-            Descubre CINTIA
-          </Button>
-        </motion.div>
+          {/* Content overlay */}
+          <div className="relative z-10 min-h-[600px] flex flex-col items-center justify-center text-center px-6 py-16 md:py-24">
+            {/* Main content - centered */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="max-w-4xl mx-auto"
+            >
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+                Cultura <span className="font-handwriting text-primary">a medida</span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 text-white max-w-2xl mx-auto">
+                Una nueva forma de vivir los museos y espacios culturales,
+                personalizada según tus intereses, ritmo y estilo de aprendizaje.
+              </p>
+              <div className="flex justify-center">
+                <Button variant="hero" size="lg" className="text-lg" onClick={scrollToCintia}>
+                  Descubre CINTIA
+                </Button>
+              </div>
+            </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.button
-          onClick={scrollToNext}
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 text-primary hover:text-primary/80 transition-colors"
-        >
-          <ChevronDown className="w-12 h-12" />
-        </motion.button>
+            {/* Scroll indicator - positioned at bottom */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+              <motion.button
+                onClick={scrollToNext}
+                animate={{ y: [0, 10, 0] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="text-white hover:text-primary transition-colors"
+              >
+                <ChevronDown className="w-12 h-12" />
+              </motion.button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

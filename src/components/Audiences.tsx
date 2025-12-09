@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Sparkles, Palette, Users, Building2 } from "lucide-react";
+import iconoPerfil from "@/assets/icono_perfil.png";
 
 const audiences = [
   {
@@ -30,20 +31,30 @@ const audiences = [
 
 export const Audiences = () => {
   return (
-    <section className="py-24 px-6 bg-gradient-primary">
+    <section id="para-quien" className="py-24 px-6">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-16 relative"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          {/* Background icon */}
+          <div className="absolute inset-0 flex items-center justify-center -z-10">
+            <img 
+              src={iconoPerfil} 
+              alt="Icono perfil" 
+              className="w-48 h-48 md:w-[250px] md:h-[250px] object-contain opacity-20"
+            />
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 relative z-10">Para quién</h2>
+          <p className="text-lg text-primary max-w-3xl mx-auto relative z-10">
             Pensada para todos los que aman descubrir
-          </h2>
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {audiences.map((audience, index) => (
             <motion.div
               key={index}
@@ -51,13 +62,17 @@ export const Audiences = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-gradient-card rounded-3xl p-8 shadow-card hover:shadow-glow transition-all duration-300 border border-primary/10"
+              className="bg-transparent border border-white rounded-3xl p-8 shadow-card hover:shadow-glow transition-all duration-300 h-full flex flex-col"
             >
               <div className="flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-primary/20">
                 <audience.icon className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">{audience.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{audience.description}</p>
+              <h3 className="text-2xl font-bold mb-4 text-white">{audience.title}</h3>
+              
+              {/* Horizontal blue line */}
+              <div className="h-[2px] mb-4" style={{ backgroundColor: '#008dff' }}></div>
+              
+              <p className="text-white leading-relaxed flex-grow">{audience.description}</p>
             </motion.div>
           ))}
         </div>

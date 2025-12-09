@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import iconoPregunta from "@/assets/icono_pregunta.png";
 
 const faqs = [
   {
@@ -15,7 +16,7 @@ const faqs = [
   {
     question: "¿En qué museos puedo probarla?",
     answer:
-      "Actualmente estamos desarrollando el prototipo con contenido basado en el Museo Picasso de Barcelona. Pronto se ampliará a otros espacios culturales.",
+      "Actualmente estamos desarrollando el prototipo de la aplicación, por lo que habrá que esperar para poder disfrutarla en museos u otros espacios culturales.",
   },
   {
     question: "¿Cómo pueden los museos colaborar?",
@@ -31,17 +32,26 @@ const faqs = [
 
 export const FAQ = () => {
   return (
-    <section className="py-24 px-6 bg-gradient-primary">
+    <section className="py-24 px-6">
       <div className="container mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-16 relative"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Preguntas frecuentes</h2>
-          <p className="text-lg text-muted-foreground">
-            Lo esencial sobre CINTIA, de forma clara y sencilla.
+          {/* Background icon */}
+          <div className="absolute inset-0 flex items-center justify-center -z-10">
+            <img 
+              src={iconoPregunta} 
+              alt="Icono pregunta" 
+              className="w-48 h-48 md:w-[250px] md:h-[250px] object-contain opacity-20"
+            />
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 relative z-10">Preguntas frecuentes</h2>
+          <p className="text-lg text-primary relative z-10">
+            Lo esencial sobre CINTIA, de forma clara y sencilla
           </p>
         </motion.div>
 
@@ -55,12 +65,12 @@ export const FAQ = () => {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-gradient-card rounded-2xl px-6 border border-primary/10 shadow-card"
+                className="bg-primary/20 rounded-2xl px-6 border border-primary/10 shadow-card"
               >
-                <AccordionTrigger className="text-left text-lg font-semibold hover:text-primary hover:no-underline py-6">
+                <AccordionTrigger className="text-left text-lg font-semibold text-white hover:text-primary hover:no-underline py-6">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
+                <AccordionContent className="text-white pb-6">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
